@@ -5,3 +5,6 @@
 # introduction
 This project is based on Qt, it help you parse 2d DXF files, draw shapes and sort the shaps to generate path.
 Now it's can get the data of line,circle,arc,ellipse,ellipse arc,point as well as blocks, and only support blocks'scaling.
+
+#Licese
+MIT License
