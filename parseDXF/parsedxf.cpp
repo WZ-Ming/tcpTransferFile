@@ -1203,22 +1203,24 @@ void parseDXF::draw_scene()
             }
         }
     }
-    QMatrix matrix(1,0,0,1,0,0);
-    ui->graphicsView->setMatrix(matrix);
+    ui->graphicsView->setMatrix(QMatrix(1,0,0,1,0,0));
     scene->setSceneRect(-0.5*ui->graphicsView->width(), -0.5*ui->graphicsView->height(), ui->graphicsView->width(), ui->graphicsView->height());
 
     double scaleXTmp=scene->sceneRect().width()/(maxX-minX),scaleYTmp=scene->sceneRect().height()/(maxY-minY);
     double scaleTmp=qMin(scaleXTmp,scaleYTmp);
-    matrix.setMatrix(ui->graphicsView->matrix().m11()*scaleTmp,ui->graphicsView->matrix().m12(),ui->graphicsView->matrix().m21(),ui->graphicsView->matrix().m22()*scaleTmp,ui->graphicsView->matrix().dx(),ui->graphicsView->matrix().dy());
-    ui->graphicsView->setMatrix(matrix);
+
+    double middleX=(minX+maxX)/2,middleY=(minY+maxY)/2;
+    ui->graphicsView->setMatrix(QMatrix(ui->graphicsView->matrix().m11()*scaleTmp,ui->graphicsView->matrix().m12(),ui->graphicsView->matrix().m21(),ui->graphicsView->matrix().m22()*scaleTmp,ui->graphicsView->matrix().dx(),ui->graphicsView->matrix().dy()));
 
     point_dis = Cpoint_dis / ui->graphicsView->matrix().m11();
     axisLength = CaxisLength / ui->graphicsView->matrix().m11();
     drawCenterAxis();
-    scene->setSceneRect(ui->graphicsView->mapToScene(ui->graphicsView->rect()).boundingRect());
 
-    double middleX=(minX+maxX)/2,middleY=(minY+maxY)/2;
-    scene->setSceneRect(scene->sceneRect().x() + middleX, scene->sceneRect().y() - middleY, scene->sceneRect().width(), scene->sceneRect().height());
+    scene->setSceneRect(ui->graphicsView->mapToScene(ui->graphicsView->rect()).boundingRect());
+    QPointF next_point = ui->graphicsView->mapToScene(QPoint(ui->graphicsView->width()/2,ui->graphicsView->height()/2));
+    QPointF last_point(middleX,middleY);
+    QPointF move_point = next_point - last_point;
+    scene->setSceneRect(scene->sceneRect().x() - move_point.x(), scene->sceneRect().y() - move_point.y(), scene->sceneRect().width(), scene->sceneRect().height());
 }
 
 void parseDXF::drawSortPath()
