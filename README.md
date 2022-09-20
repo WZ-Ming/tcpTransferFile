@@ -1,3 +1,10 @@
-# 简介
-编写了一种静态前瞻式7段S型速度规划，实现边计算边运动，并在运动过程中可平稳减速暂停以及启动。
-目前算法在运动过程中不支持修改位移、速度、加速度等条件，只是是在这些条件确定下实现的前瞻速度规划。
+#  简介
+该项目基于Qt框架开发，能解析二维dxf格式图纸，并将解析的图形画出来，同时对图形进行排序生成轨迹。
+目前支持点、直线、多段线、整圆、圆弧、椭圆、椭圆弧和块的解析以及只支持块的等比缩放。
+
+# Introduction
+This project is based on Qt, it help you parse 2d DXF files, draw shapes and sort the shaps to generate path.
+Now it's can get the data of point,line,lwpolyline,circle,arc,ellipse,ellipse arc as well as block, and only support block'scaling.
+
+# License
+MIT License
