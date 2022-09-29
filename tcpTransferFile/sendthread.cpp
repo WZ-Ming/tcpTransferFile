@@ -8,11 +8,14 @@ sendThread::sendThread()
     recThread->start();
     initServer();
     initClient();
-
 }
 
 sendThread::~sendThread()
 {
+    recThread->stopThread();
+    recThread->quit();
+    recThread->wait();
+    delete recThread;
     delete TcpServer;
     delete tcpClient;
 }
